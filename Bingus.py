@@ -88,9 +88,9 @@ async def on_message(message):
     if "hey bingus" in message.content.lower() or "<@!788956209260134423>" in message.content:
         heyreply = random.randint(1, 2)
         if heyreply == 1:
-            await message.channel.send("Yes")
+            await message.channel.send("Yew")
         else:
-            await message.channel.send("No")
+            await message.channel.send("Nah")
     await bot.process_commands(message)
 
 
