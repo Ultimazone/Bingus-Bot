@@ -77,7 +77,7 @@ async def on_message(message):
     if message.author.bot:
         return
     if message.content == "test":
-        await message.channel.send("tost")
+        await message.channel.send("tust")
         print("sah")
     if message.content == '<:trash:453781143976804352>':
         emoji = '<:Yuri:642749514838442005>'
