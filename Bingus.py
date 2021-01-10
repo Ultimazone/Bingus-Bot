@@ -79,7 +79,7 @@ async def on_message(message):
     if message.content == "test":
         await message.channel.send("tust")
         print("sah")
-    if message.content == '<:trash:453781143976804352>':
+    if "<:trash:453781143976804352>" in message.content:
         emoji = '<:Yuri:642749514838442005>'
         await message.add_reaction(emoji)
         print("bingbong")
