@@ -44,17 +44,26 @@ async def pokemon(ctx, *, arg):
     await ctx.message.channel.send(pokemondblink + names)
 
 
-@bot.command(name='move', help='Determines if and how a pokemon learns the given move')
+@bot.command(name='move', help='Pulls up the PokemonDB page of the requested move')
+async def pokemon(ctx, *, arg):
+    pokemondbmovelink = 'https://pokemondb.net/move/'
+    movename = arg.replace(" ", "-")
+    await ctx.message.channel.send(pokemondbmovelink + movename)
+
+
+@bot.command(name='learn', help='Determines if and how a pokemon learns the given move')
 async def move(ctx, *, args):
     arg1, arg2 = args.split("|")
-    moves = arg1.replace(" ", "-")
-    mon = arg2.replace(" ", "-")
-    moveurl = 'https://pokemondb.net/move/' + f'{moves}'
-    content = requests.get(moveurl)
-    if content.text.lower().__contains__(mon):
-        await ctx.message.channel.send(f'Yes, {arg2} learns {arg1}.')
+    bop = ' '.join(elem.capitalize() for elem in arg1.split())
+    bup = ' '.join(elem.capitalize() for elem in arg2.split())
+    mon = arg1.replace(" ", "-").replace("'", "")
+    moves = arg2.replace(" ", "-").replace("'", "")
+    monurl = 'https://pokemondb.net/pokedex/' + f'{mon}'
+    content = requests.get(monurl)
+    if content.text.lower().__contains__(moves):
+        await ctx.message.channel.send(f'{bop} learns {bup}.')
     else:
-        await ctx.message.channel.send(f'No, {arg2} does not learn {arg1}.')
+        await ctx.message.channel.send(f'{bop} does not learn {bup}, or you have misspelled the move/the move does not exist.')
 
 
 @bot.command(aliases=['search', 'g'], help='Grabs the first five search results')
