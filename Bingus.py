@@ -42,6 +42,19 @@ async def pokemon(ctx, *, arg):
     names = arg.replace(" ", "-")
     await ctx.message.channel.send(pokemondblink + names)
 
+    
+@bot.command(name='move', help='Determines if and how a pokemon learns the given move')
+async def move(ctx, *, args):
+    arg1, arg2 = args.split("|")
+    moves = arg1.replace(" ", "-")
+    mon = arg2.replace(" ", "-")
+    moveurl = 'https://pokemondb.net/move/' + f'{moves}'
+    content = requests.get(moveurl)
+    if content.text.lower().__contains__(mon):
+        await ctx.message.channel.send(f'Yes, {arg2} learns {arg1}.')
+    else:
+        await ctx.message.channel.send(f'No, {arg2} does not learn {arg1}.')
+    
 
 @bot.command(aliases=['search', 'g'], help='Grabs the first five search results')
 async def google(ctx, *, text):
