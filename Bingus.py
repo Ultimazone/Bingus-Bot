@@ -43,7 +43,7 @@ async def pokemon(ctx, *, arg):
     names = arg.replace(" ", "-")
     await ctx.message.channel.send(pokemondblink + names)
 
-    
+
 @bot.command(name='move', help='Determines if and how a pokemon learns the given move')
 async def move(ctx, *, args):
     arg1, arg2 = args.split("|")
@@ -55,7 +55,7 @@ async def move(ctx, *, args):
         await ctx.message.channel.send(f'Yes, {arg2} learns {arg1}.')
     else:
         await ctx.message.channel.send(f'No, {arg2} does not learn {arg1}.')
-    
+
 
 @bot.command(aliases=['search', 'g'], help='Grabs the first five search results')
 async def google(ctx, *, text):
@@ -102,7 +102,7 @@ async def on_message(message):
     if "hey bingus" in message.content.lower() or "<@!788956209260134423>" in message.content:
         heyreply = random.randint(1, 2)
         if heyreply == 1:
-            await message.channel.send("Ye")
+            await message.channel.send("Yes")
         else:
             await message.channel.send("No")
     await bot.process_commands(message)
