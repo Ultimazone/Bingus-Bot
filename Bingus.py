@@ -1,5 +1,4 @@
 import random
-import urllib
 import discord
 from discord.ext import commands
 from googlesearch import search
@@ -50,7 +49,7 @@ async def move(ctx, *, args):
     moves = arg1.replace(" ", "-")
     mon = arg2.replace(" ", "-")
     moveurl = 'https://pokemondb.net/move/' + f'{moves}'
-    content = urllib.request.urlopen(moveurl)
+    content = requests.get(moveurl)
     if content.text.lower().__contains__(mon):
         await ctx.message.channel.send(f'Yes, {arg2} learns {arg1}.')
     else:
