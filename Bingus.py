@@ -1,6 +1,5 @@
 import random
 import discord
-from urllib import requests
 from discord.ext import commands
 from googlesearch import search
 import json
