@@ -200,7 +200,9 @@ async def on_message(message):
         emoji = '<:Yuri:642749514838442005>'
         await message.add_reaction(emoji)
     if message.content.lower() == "based":
-        await message.channel.send("based on what")
+	basedmessage = random.randint(1, 10)
+        if basedmessage == 1:
+            await message.channel.send("based on what")
     if "hey bingus" in message.content.lower():
         heyreply = random.randint(1, 2)
         yesreplies = ["Yes.", "Ye.", "Yeah.", "Yup.",
