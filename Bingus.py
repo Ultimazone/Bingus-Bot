@@ -133,22 +133,31 @@ async def learn(ctx, *, args):
     moves = arg2.replace(" ", "-").replace("'", "")
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
     monurl = 'https://pokemondb.net/pokedex/' + f'{mon}'
-    content = requests.get(monurl, timeout=.1, headers=headers)
-    html = requests.get(monurl, timeout=.1, headers=headers)
+    content = requests.get(monurl, timeout=.5, headers=headers)
+    html = requests.get(monurl, timeout=.5, headers=headers)
     soup = BeautifulSoup(html.content, 'html.parser')
     movelocation = soup.find("a", href=f"/move/{moves}")
+    monmove = f"{bop} learns {bup}"
     if not (movelocation is None):
         mlparent = movelocation.parent
         methodnumber = mlparent.previousSibling
         methodparents = movelocation.parent.parent.parent.parent.parent
+        moncondition1 = ""
+        moncondition2 = ""
+        moncondition3 = ""
+        moncondition4 = ""
+        moncondition5 = ""
+        moncondition6 = ""
         if 'Lv.' in methodparents.text:
-            await ctx.message.channel.send(f'{bop} learns {bup} at level {methodnumber.text}.')
+            moncondition1 = f' at level {methodnumber.text}'
         elif 'TM' in methodparents.text:
-            await ctx.message.channel.send(f'{bop} learns {bup} from TM{methodnumber.text}.')
+            moncondition2 = f' from TM{methodnumber.text}.'
         elif 'TR' in methodparents.text:
-            await ctx.message.channel.send(f'{bop} learns {bup} from TR{methodnumber.text}.')
+            moncondition3 = f' from TR{methodnumber.text}.'
         else:
-            await ctx.message.channel.send(f'{bop} learns {bup} as an egg or tutor move.')
+            moncondition4 = f' either upon evolution, as an egg move, or as a tutor move'
+        moveconditions = moncondition1+moncondition2+moncondition3+moncondition4
+        await ctx.message.channel.send(f'{monmove}{moveconditions}')
     else:
         await ctx.message.channel.send(f'{bop} does not learn {bup} or move is invalid.')
 
@@ -200,7 +209,7 @@ async def on_message(message):
         emoji = '<:Yuri:642749514838442005>'
         await message.add_reaction(emoji)
     if message.content.lower() == "based":
-	basedmessage = random.randint(1, 10)
+        basedmessage = random.randint(1, 10)
         if basedmessage == 1:
             await message.channel.send("based on what")
     if "hey bingus" in message.content.lower():
@@ -214,6 +223,9 @@ async def on_message(message):
             await message.channel.send(replyyes)
         else:
             await message.channel.send(replyno)
+    if "media.discordapp.net" in message.content.lower():
+        await message.delete()
+        await message.channel.send(f"{message.content.replace('media.discordapp.net', 'cdn.discordapp.com')}")
     await bot.process_commands(message)
 
 
@@ -225,4 +237,3 @@ async def on_ready():
 
 # Run the bot on the server
 bot.run(token)
-
